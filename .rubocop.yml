@@ -1,6 +1,5 @@
 require:
-  - rubocop-rails
-  - rubocop-rspec
+#  - rubocop-minitest
 
 AllCops:
   Include:
@@ -13,15 +12,8 @@ AllCops:
     - "**/*.jb"
   Exclude:
     - "bin/*"
-    - "db/seeds.rb"
-    - "db/schema.rb"
-    - "node_modules/**/*"
-    - "vendor/gems/**/*"
-    - "vendor/bundle/**/*"
-    - "vendor/gems/**/*"
-    - "node_modules/**/*"
 Rails:
-  Enabled: true
+  Enabled: false
 Documentation:
   Enabled: false
 Metrics/LineLength:
@@ -40,42 +32,9 @@ Metrics/ModuleLength:
   Max: 200
 Style/TrivialAccessors:
   Enabled: false # TODO: this should be enabled
-Rails/DynamicFindBy:
-  Enabled: false # TODO: this should be enabled
-Rails/CreateTableWithTimestamps:
-  Enabled: false
-Rails/InverseOf:
-  Enabled: false
-Rails/HelperInstanceVariable:
-  Enabled: false
 Style/MixinUsage:
   Enabled: false
 Style/YodaCondition:
   EnforcedStyle: forbid_for_equality_operators_only
-Rails/BulkChangeTable:
-  Enabled: false
 Naming/PredicateName:
   Enabled: false
-RSpec/MultipleExpectations:
-  Max: 20
-RSpec/ExampleLength:
-  Max: 50
-RSpec/NestedGroups:
-  Max: 5
-RSpec/InstanceVariable:
-  Enabled: false
-RSpec/EmptyExampleGroup:
-  Enabled: false
-RSpec/BeforeAfterAll:
-  Enabled: false
-RSpec/MessageSpies:
-  Enabled: false
-RSpec/AnyInstance:
-  Enabled: false
-RSpec/ExpectInHook:
-  Enabled: false
-RSpec/HookArgument:
-  Enabled: false
-RSpec/DescribeClass:
-  Exclude:
-    - spec/routing/**/*

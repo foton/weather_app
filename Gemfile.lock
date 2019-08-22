@@ -41,6 +41,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-minitest (0.0.1)
     ruby-progressbar (1.10.1)
     unicode-display_width (1.6.0)
 
@@ -54,6 +55,7 @@ DEPENDENCIES
   pry-byebug
   rake
   rubocop
+  rubocop-minitest
 
 BUNDLED WITH
    1.17.3
