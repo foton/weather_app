@@ -5,12 +5,11 @@ require 'json'
 module Weather
   module Storage
     class File
-      attr_reader :filepath, :stored_attributes, :stored_records_count
+      attr_reader :filepath, :stored_attributes
 
-      def initialize(filepath:, stored_attributes:, stored_records_count:)
+      def initialize(filepath:, stored_attributes:)
         @filepath = filepath
         @stored_attributes = stored_attributes
-        @stored_records_count = stored_records_count
 
         check_file
       end
@@ -21,14 +20,16 @@ module Weather
       end
 
       def add(report)
-        reports <<  report
-        @reports = trim_reports(reports)
-
+        reports << report
         save!
       end
 
       def reports
-        @reports ||= trim_reports(load_reports)
+        @reports ||= load_reports
+      end
+
+      def reports_for(city_name_or_id)
+        reports.select { |report| [report.city_name, report.city_id].include?(city_name_or_id) }
       end
 
       private
@@ -59,10 +60,6 @@ module Weather
 
       def load_reports
         build_reports_from(stored_records)
-      end
-
-      def trim_reports(reports)
-        reports.last(stored_records_count)
       end
 
       def record_hashes

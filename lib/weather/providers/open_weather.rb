@@ -41,10 +41,11 @@ module Weather
       def build_report_from(response)
         extract_data_hash_from(response.body)
 
-        Weather::Report.new(city: ow_city_name,
-                            city_id: ow_city_id,
-                            temperature_in_celsius: ow_temperature_in_celsius,
-                            temperature_in_fahrenheit: ow_temperature_in_fahrenheit)
+        report_with(city_name: ow_city_name,
+                    city_id: ow_city_id,
+                    temperature_in_celsius: ow_temperature_in_celsius,
+                    temperature_in_fahrenheit: ow_temperature_in_fahrenheit,
+                    time_in_utc: ow_generation_time_in_utc)
       end
 
       def extract_data_hash_from(response_body)
@@ -68,7 +69,7 @@ module Weather
       end
 
       def ow_generation_time_in_utc
-        Time.at(@data_hash['dt'].to_i)
+        Time.at(@data_hash['dt'].to_i).utc
       end
 
       def temp_in_celsius?

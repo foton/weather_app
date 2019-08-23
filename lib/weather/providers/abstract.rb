@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../report.rb'
+
 module Weather
   module Provider
     class Abstract
@@ -25,7 +27,17 @@ module Weather
       end
 
       def not_found_report
-        Weather::Report.new(city: city_name, city_id: city_id, not_found: true)
+        report = report_with({})
+        report.not_found!
+        report
+      end
+
+      def report_with(attributes = {})
+        base_atts = { city_name: city_name,
+                      city_id: city_id,
+                      temperature_in_celsius: nil,
+                      time_in_utc: Time.now.utc }
+        Weather::Report.new(base_atts.merge(attributes))
       end
     end
   end

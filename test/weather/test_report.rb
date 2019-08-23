@@ -6,18 +6,22 @@ require_relative '../../lib/weather/report.rb'
 module Weather
   class TestReport < Minitest::Test
     def setup
-      @attributes = { city: 'Olomouc,cs',
+      time = Time.now.utc
+      @attributes = { city_name: 'Olomouc,cs',
                       city_id: 3_069_011,
                       temperature_in_celsius: 15.3,
-                      temperature_in_fahrenheit: nil }
+                      temperature_in_fahrenheit: nil,
+                      time_in_utc: time }
     end
 
     def test_initialization
       report = Weather::Report.new(@attributes)
-      assert_equal @attributes[:city], report.city
+
+      assert_equal @attributes[:city_name], report.city_name
       assert_equal @attributes[:city_id], report.city_id
       assert_equal @attributes[:temperature_in_celsius], report.temperature_in_celsius
       assert_equal 59.54, report.temperature_in_fahrenheit
+      assert_equal @attributes[:time_in_utc], report.time_in_utc
       assert report.city_found?
     end
 
@@ -26,7 +30,6 @@ module Weather
 
       assert_equal 15.3, report.temperature_in_celsius
       assert_equal 59.54, report.temperature_in_fahrenheit
-      assert report.city_found?
     end
 
     def test_conversion_to_celsius
@@ -35,14 +38,22 @@ module Weather
 
       assert_equal 71.42, report.temperature_in_fahrenheit
       assert_equal 21.9, report.temperature_in_celsius
-      assert report.city_found?
     end
 
-    def test_setup_not_found_report
-      report = Weather::Report.new(@attributes.merge(not_found: true))
-
-      assert_equal @attributes[:city], report.city
+    def test_not_found_report
+      report = Weather::Report.new(@attributes)
+      assert_equal @attributes[:city_name], report.city_name
       assert_equal @attributes[:city_id], report.city_id
+      assert_equal @attributes[:time_in_utc], report.time_in_utc
+      assert_equal 15.3, report.temperature_in_celsius
+      assert_equal 59.54, report.temperature_in_fahrenheit
+      assert report.city_found?
+
+      report.not_found!
+
+      assert_equal @attributes[:city_name], report.city_name
+      assert_equal @attributes[:city_id], report.city_id
+      assert_equal @attributes[:time_in_utc], report.time_in_utc
       assert_equal 0, report.temperature_in_celsius
       assert_equal 0, report.temperature_in_fahrenheit
       refute report.city_found?
