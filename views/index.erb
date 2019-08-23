@@ -2,17 +2,22 @@
 <html>
   <head>
     <meta charset='UTF-8' />
-    <meta http-equiv="refresh" content="10">
+    <meta http-equiv="refresh" content="300">
     <title>WeatherApp</title>
     <link href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css' rel='stylesheet' />
+    <link rel="stylesheet" href="/style.css"/>
   </head>
+
   <body class='container'>
-    <h1><%= @average_report[:city_name] %></h1>
-    <p>Average temperature for time period: <em><%= @average_report[:from_time] %> - <%= @average_report[:to_time] %></em> is</p>
-    <p><%= @average_report[:in_celsius] %> C / <%= @average_report[:in_fahrenheit] %> F </p>
-    <p>This page will self refresh after 1 minute. <br />
-       Temperatures period lenght is set to 30 minutes.<br />
-       Collection of temperature data starts with first opening of this page, and continues until page is closed.
-    </p>
+    <div id='average_temperature'>
+      <h1><%= @average_report[:city_name] %></h1>
+      <p>Average temperature from records between: <em><%= @average_report[:from_time] %> - <%= @average_report[:to_time] %></em> is</p>
+      <h2><%= @average_report[:in_celsius] %> &deg;C :: <%= @average_report[:in_fahrenheit] %> &deg;F </h2>
+      <p class ="notice">
+        This page will self refresh after 5 minutes. Last refresh: <em><%= @last_refresh %></em><br />
+        Average is calculated for 1 hour interval, but length may vary depending on records downloaded from provider.<br />
+        Collection of temperature data starts with first opening of this page, and continues until page is closed.
+      </p>
+     </div>
   </body>
 </html>

@@ -32,7 +32,7 @@ module Weather
     private
 
     def reports_for_city_and_time_period(city_name_or_id, from_time, to_time)
-      reports = storage.reports_for(city_name_or_id)
+      reports = storage.reports_for(city_name_or_id).uniq(&:time_in_utc)
       return reports if from_time.nil? || to_time.nil?
 
       reports.select { |r| (from_time.utc..to_time).cover?(r.time_in_utc) }
@@ -44,7 +44,8 @@ module Weather
         in_celsius: :no_data,
         in_fahrenheit: :no_data,
         from_time: from_time,
-        to_time: to_time }
+        to_time: to_time
+      }
     end
   end
 end

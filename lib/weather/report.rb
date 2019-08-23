@@ -22,6 +22,16 @@ module Weather
       !@not_found
     end
 
+    def <=>(other)
+      by_id = city_id <=> other.city_id
+      return by_id unless by_id.zero?
+
+      by_name = city_name <=> other.city_name
+      return by_name unless by_name.zero?
+
+      time_in_utc <=> other.time_in_utc
+    end
+
     private
 
     def calculate_temperatures(temperature_in_celsius, temperature_in_fahrenheit)

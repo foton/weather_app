@@ -114,8 +114,8 @@ module Weather
     end
 
     def expected_average_temperatures_for(temperatures)
-      temp_c = (temperatures.sum.to_f / temperatures.size)
-      temp_f = ((temperatures.collect { |tc| ((tc * 9 / 5) + 32).round(2) }).sum.to_f / temperatures.size)
+      temp_c = (temperatures.sum.to_f / temperatures.size).round(2)
+      temp_f = ((temperatures.collect { |tc| ((tc * 9 / 5) + 32).round(2) }).sum.to_f / temperatures.size).round(2)
       [temp_c, temp_f]
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'abstract.rb'
+require_relative './abstract.rb'
 
 module Weather
   module Provider

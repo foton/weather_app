@@ -2,36 +2,18 @@
 
 require 'json'
 require 'time'
-require_relative '../report.rb'
+require_relative './abstract.rb'
 
 module Weather
   module Storage
-    class File
-      attr_reader :filepath, :stored_attributes
+    class File < Weather::Storage::Abstract
+      attr_reader :filepath
 
-      def initialize(filepath:, stored_attributes:)
+      def initialize(stored_attributes:, filepath:)
+        super(stored_attributes: stored_attributes)
         @filepath = filepath
-        @stored_attributes = stored_attributes
 
         check_file
-      end
-
-      def clear!
-        @reports = []
-        save!
-      end
-
-      def add(report)
-        reports << report
-        save!
-      end
-
-      def reports
-        @reports ||= load_reports
-      end
-
-      def reports_for(city_name_or_id)
-        reports.select { |report| [report.city_name, report.city_id].include?(city_name_or_id) }
       end
 
       private
@@ -57,7 +39,7 @@ module Weather
       end
 
       def save!
-        ::File.write(filepath, JSON.generate(record_hashes))
+        ::File.write(filepath, JSON.pretty_generate(record_hashes))
       end
 
       def load_reports

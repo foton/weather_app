@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'abstract.rb'
 require 'httparty'
 require 'json'
+require_relative './abstract.rb'
 
 module Weather
   module Provider

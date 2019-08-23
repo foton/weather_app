@@ -58,5 +58,31 @@ module Weather
       assert_equal 0, report.temperature_in_fahrenheit
       refute report.city_found?
     end
+
+    def test_it_can_be_compared
+      time = Time.now.utc
+      first = Weather::Report.new(city_name: 'Olomouc,cs',
+                                  city_id: 1,
+                                  temperature_in_celsius: 7,
+                                  time_in_utc: time)
+      second = Weather::Report.new(city_name: 'A',
+                                    city_id: 3_069_011,
+                                    temperature_in_celsius: 5,
+                                    time_in_utc: time)
+      third = Weather::Report.new(city_name: 'Olomouc,cs',
+                                  city_id: 3_069_011,
+                                  temperature_in_celsius: 3,
+                                  time_in_utc: time)
+      fourth = Weather::Report.new(city_name: 'Olomouc,cs',
+                                   city_id: 3_069_011,
+                                   temperature_in_celsius: 7,
+                                   time_in_utc: time + 1)
+      fifth = Weather::Report.new(city_name: 'Olomouc,cs',
+                                  city_id: 3_069_011,
+                                  temperature_in_celsius: 7,
+                                  time_in_utc: time + 1)
+
+      assert_equal [first, second, third, fourth, fifth], [third, second, fourth, fifth, first].sort
+    end
   end
 end

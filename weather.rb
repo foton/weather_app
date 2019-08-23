@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'time'
 require_relative './lib/weather/weatherman.rb'
 require_relative './lib/weather/providers.rb'
