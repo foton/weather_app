@@ -12,7 +12,9 @@ module Weather
       OLOMOUC_ID = 3_069_011
 
       def setup
-        @provider = Weather::Provider::OpenWeather.new('8ce0a7167c8c2277d27b33dc516eb6e3')
+        # we actually make real calls to OpenWeather API, to be sure have working provider
+        # in other tests we are using Weather::Provider::Test
+        @provider = Weather::Provider::OpenWeather.new(ENV['OPEN_WEATHER_API_KEY'])
       end
 
       def test_current_weather_for_city_name_should_return_weather_report
