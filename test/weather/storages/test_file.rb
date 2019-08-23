@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require 'pry-byebug'
 require_relative '../../../lib/weather/storages/file.rb'
 require_relative '../../../lib/weather/report.rb'
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'time'
+require_relative '../report.rb'
 
 module Weather
   module Storage
@@ -73,7 +75,7 @@ module Weather
       end
 
       def build_reports_from(stored_records)
-        stored_records.collect { |json_hash| Weather::Report.new(json_hash) }
+        stored_records.collect { |json_hash| build_report_from(json_hash) }
       end
 
       def stored_records
@@ -88,6 +90,11 @@ module Weather
             hash[key.to_sym] = rec[key]
           end
         end
+      end
+
+      def build_report_from(json_hash)
+        json_hash[:time_in_utc] = Time.parse(json_hash[:time_in_utc]).utc if json_hash[:time_in_utc].is_a?(String)
+        Weather::Report.new(json_hash)
       end
     end
   end

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv="refresh" content="10">
+    <title>WeatherApp</title>
+    <link href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css' rel='stylesheet' />
+  </head>
+  <body class='container'>
+    <h1><%= @average_report[:city_name] %></h1>
+    <p>Average temperature for time period: <em><%= @average_report[:from_time] %> - <%= @average_report[:to_time] %></em> is</p>
+    <p><%= @average_report[:in_celsius] %> C / <%= @average_report[:in_fahrenheit] %> F </p>
+    <p>This page will self refresh after 1 minute. <br />
+       Temperatures period lenght is set to 30 minutes.<br />
+       Collection of temperature data starts with first opening of this page, and continues until page is closed.
+    </p>
+  </body>
+</html>

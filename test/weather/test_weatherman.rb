@@ -58,6 +58,7 @@ module Weather
         weatherman.average_temperature_for(city_name)
       end
 
+      assert_equal city_name, avg_temp_hash[:city_name]
       assert_equal avg_temp_c, avg_temp_hash[:in_celsius]
       assert_equal avg_temp_f, avg_temp_hash[:in_fahrenheit]
 
@@ -78,6 +79,7 @@ module Weather
                                            to_time: (times[-1] + 5))
       end
 
+      assert_equal city_name, avg_temp_for_period[:city_name]
       assert_equal avg_temp_c, avg_temp_for_period[:in_celsius]
       assert_equal avg_temp_f, avg_temp_for_period[:in_fahrenheit]
       assert_equal reports[2].time_in_utc, avg_temp_for_period[:from_time]
@@ -91,6 +93,7 @@ module Weather
         weatherman.average_temperature_for(city_name, from_time: time1, to_time: time2)
       end
 
+      assert_equal city_name, avg_temp[:city_name]
       assert_equal :no_data, avg_temp[:in_celsius]
       assert_equal :no_data, avg_temp[:in_fahrenheit]
       assert_equal time1, avg_temp[:from_time]

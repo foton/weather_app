@@ -22,8 +22,9 @@ module Weather
 
       return no_reports_hash_for(city_name_or_id, from_time, to_time) if reports.empty?
 
-      { in_celsius: reports.sum(&:temperature_in_celsius) / reports.size,
-        in_fahrenheit: reports.sum(&:temperature_in_fahrenheit) / reports.size,
+      { city_name: reports.first.city_name,
+        in_celsius: (reports.sum(&:temperature_in_celsius) / reports.size).round(2),
+        in_fahrenheit: (reports.sum(&:temperature_in_fahrenheit) / reports.size).round(2),
         from_time: reports.first.time_in_utc,
         to_time: reports.last.time_in_utc }
     end
@@ -37,8 +38,10 @@ module Weather
       reports.select { |r| (from_time.utc..to_time).cover?(r.time_in_utc) }
     end
 
-    def no_reports_hash_for(_city_name_or_id, from_time, to_time)
-      { in_celsius: :no_data,
+    def no_reports_hash_for(city_name_or_id, from_time, to_time)
+      {
+        city_name: city_name_or_id,
+        in_celsius: :no_data,
         in_fahrenheit: :no_data,
         from_time: from_time,
         to_time: to_time }
